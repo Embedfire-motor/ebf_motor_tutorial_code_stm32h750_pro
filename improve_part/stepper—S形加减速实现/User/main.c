@@ -38,7 +38,7 @@ int main(void)
 	DEBUG_USART_Config();
 	LED_GPIO_Config();
 	printf("欢迎使用野火 电机开发板 步进电机 生成S形加减CalculateSpeedTab速表 例程\r\n");
-	printf("按下按键1 可打印相应表\r\n");
+	printf("按下按键1 可使能步进电机\r\n");
   /* 初始化时间戳 */
   HAL_InitTick(5);
 	/*按键初始化*/
