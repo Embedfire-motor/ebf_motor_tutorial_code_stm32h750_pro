@@ -8,7 +8,7 @@
   ******************************************************************
   * @attention
   *
-  * 实验平台:野火 STM32H743 开发板 
+  * 实验平台:野火 STM32H750 开发板 
   * 论坛    :http://www.firebbs.cn
   * 淘宝    :http://firestm32.taobao.com
   *
@@ -29,7 +29,7 @@
   */
 int main(void) 
 {
-  int i=0,j=0;
+  int i=1,j=1;
   int dir_val=0;
   int en_val=0;
 	/* 初始化系统时钟为480MHz */

@@ -8,7 +8,7 @@
   ******************************************************************
   * @attention
   *
-  * 实验平台:野火 STM32H743 开发板 
+  * 实验平台:野火 STM32H750 开发板 
   * 论坛    :http://www.firebbs.cn
   * 淘宝    :http://firestm32.taobao.com
   *
@@ -39,7 +39,7 @@ int main(void)
 	DEBUG_USART_Config();
 	LED_GPIO_Config();
   printf("欢迎使用野火 电机开发板 步进电机 PWM控制旋转 例程\r\n");
-  printf("按下按键2可修改旋转方向，按下按键3可修改使能\r\n");  
+  printf("按下按键1可修改旋转方向，按下按键2可修改使能\r\n");  
   printf("支持四个通道，切换宏定义即可\r\n"); 
 	/*按键中断初始化*/
 	Key_GPIO_Config();	
