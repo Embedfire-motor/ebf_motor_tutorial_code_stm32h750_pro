@@ -89,6 +89,8 @@ int main(void)
 			
 			while(1)
 			{
+				/* 接收数据处理 */
+				receiving_process();
 				/* 扫描KEY1 */
 				if( Key_Scan(KEY1_GPIO_PORT,KEY1_PIN) == KEY_ON  )
 				{
