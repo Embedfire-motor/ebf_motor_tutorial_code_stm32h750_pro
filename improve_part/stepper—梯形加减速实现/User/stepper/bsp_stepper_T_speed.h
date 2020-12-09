@@ -49,9 +49,9 @@ struct GLOBAL_FLAGS
 
 /*频率相关参数*/
 //定时器实际时钟频率为：240MHz/(TIM_PRESCALER+1)
-//240/(23+1)=1Mhz
+//240/(11+1)=2Mhz
 //具体需要的频率可以自己计算
-#define TIM_PRESCALER      1 
+#define TIM_PRESCALER      11 
 #define T1_FREQ           (SystemCoreClock/2/(TIM_PRESCALER+1)) // 频率ft值
 
 

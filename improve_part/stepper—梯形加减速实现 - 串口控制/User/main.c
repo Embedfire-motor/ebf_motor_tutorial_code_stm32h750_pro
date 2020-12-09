@@ -48,6 +48,8 @@ int main(void)
 	stepper_Init();
 	//´òÓ¡°ïÖúÃüÁî
 	ShowHelp();
+	
+	MOTOR_EN(HIGH);	
 
 	while(1)
 	{     
