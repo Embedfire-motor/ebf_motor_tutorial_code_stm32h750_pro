@@ -8,7 +8,7 @@
   ******************************************************************************
   * @attention
   *
-  * 实验平台:野火  STM32 F407 开发板 
+  * 实验平台:野火  STM32 H750 开发板 
   * 论坛    :http://www.firebbs.cn
   * 淘宝    :http://firestm32.taobao.com
   *
@@ -57,8 +57,11 @@ static void sd_gpio_config(void)
   
 	/*调用库函数，使用上面配置的GPIO_InitStructure初始化GPIO*/
   HAL_GPIO_Init(SHUTDOWN_GPIO_PORT, &GPIO_InitStruct);
-  
+
   BLDCM_ENABLE_SD();     // 默认开启
+	
+	/* 延迟50ms，H743开Cache后速度会过快，未满足SD引脚时序。加入操作系统时需格外注意这个延时函数是否生效或阻塞这里 */
+	HAL_Delay(50);	
 }
 
 /**
@@ -133,22 +136,30 @@ void bldcm_pid_control(void)
   {
     float cont_val = 0;    // 当前控制值
 
-    cont_val = PID_realize(abs(speed_actual));
-    if (cont_val < 0)
-    {
-      cont_val = 0;
-    }
+    cont_val = PID_realize(speed_actual);
 
-    cont_val = cont_val > PWM_MAX_PERIOD_COUNT ? PWM_MAX_PERIOD_COUNT : cont_val;
+		if (cont_val < 0)
+		{
+				cont_val = -cont_val;
+				bldcm_data.direction = MOTOR_REV;
+		}
+		else 
+		{
+				bldcm_data.direction = MOTOR_FWD;
+		}
+	
+		cont_val = (cont_val > PWM_PERIOD_COUNT) ? PWM_PERIOD_COUNT : cont_val;  // 上限处理
+
     set_bldcm_speed(cont_val);
     
   #ifdef PID_ASSISTANT_EN
     set_computer_value(SEND_FACT_CMD, CURVES_CH1, &speed_actual, 1);     // 给通道 1 发送实际值
   #else
-    printf("实际值：%d, 目标值：%.0f\n", cont_val, speed_actual, get_pid_target());
+    printf("实际值：%d, 目标值：%.0f，控制值: %.0f\n", speed_actual, get_pid_target(), cont_val);
   #endif
   }
 }
+
 
  
 ///**
